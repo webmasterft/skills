@@ -5,39 +5,6 @@ description: "Accessibility (a11y) best practices for web development. Focuses o
 
 # Accessibility (a11y) Standards
 
-## 4-Layer Accessibility Audit Methodology
-
-When performing an expert audit, execute these layers in order to ensure WCAG 2.1/2.2 AA compliance.
-
-### Layer 1: Keyboard & Focus Control
-*The foundation of the "Operable" principle. Do not use your mouse.*
-- **Skip Link:** Does a "Skip to Content" link appear on the first Tab? Does it actually move focus to the `<main>` element?
-- **Focus Visibility:** Is the `:focus-visible` state clearly visible (high contrast)? Never use `outline: none`.
-- **Focus Order:** Does the tabbing follow a logical visual flow (top-to-bottom, left-to-right)? Check that CSS Flexbox order or Grid hasn't broken the DOM sequence.
-- **Keyboard Traps:** Can you enter and exit modals, menus, and tooltips using only `Tab` and `Esc`?
-- **Non-Interactive Elements:** Ensure `<div>` or `<span>` elements aren't in the tab order unless they are truly interactive.
-
-### Layer 2: Screen Reader Usability
-*Testing with NVDA (Windows) or VoiceOver (macOS). Focus on "Understandable".*
-- **Semantic Landmarks:** Use the "Elements List" (`Insert + F7` in NVDA). Are there landmarks like `<header>`, `<nav>`, `<main>`, and `<footer>`?
-- **Headings Hierarchy:** Is there exactly one `<h1>`? Do headings follow a strict nesting order (`h1 > h2 > h3`) without skipping levels for styling?
-- **Images & Context:** Do `alt` attributes describe the purpose, not just the pixels? (e.g., "Search" instead of "Magnifying glass icon").
-- **Form Labels:** When tabbing into an input, does the screen reader announce the label, current value, and state (e.g., "Required", "Invalid")?
-- **Dynamic Content:** When an error appears or a cart updates, is it announced? (Check for `aria-live="polite"`).
-
-### Layer 3: Visual & Layout Adaptability
-*Testing the "Perceivable" principle under different user constraints.*
-- **Reflow (400% Zoom):** At 400% zoom on a 1280px wide screen, does the content flow vertically without a horizontal scrollbar?
-- **Text Spacing:** Increase line height (to 1.5) and paragraph spacing (to 2). Does text overlap or get cut off in fixed-height containers?
-- **Color Contrast:** Use a tool to verify text against backgrounds (AA requires 4.5:1).
-- **Color as Meaning:** Ensure information isn't conveyed only by color (e.g., an error shouldn't just be a red border; it needs an icon or text label).
-
-### Layer 4: Touch & Pointer (WCAG 2.2 focus)
-*Critical for mobile and motor-impaired users.*
-- **Target Size:** Are all interactive targets (buttons, links) at least 24x24 CSS pixels?
-- **Pointer Gestures:** If a feature requires a complex gesture (like swiping or dragging), is there a single-click alternative (like "Up" and "Down" buttons)?
-- **Orientation:** Does the site function perfectly in both Portrait and Landscape modes without losing data or functionality?
-
 Mandatory accessibility guidelines to ensure WCAG 2.1 and 2.2 AA compliance across all web applications.
 
 ## When to Apply
@@ -76,33 +43,53 @@ To perform a comprehensive accessibility audit, trigger the expert workflow:
 
 This workflow utilizes the **Accessibility Insights for Web** Chrome extension and **NVDA Screen Reader** to perform both automated FastPass checks and manual Assessment tests, covering 95%+ of WCAG 2.1 & 2.2 AA criteria.
 
-### 4-Layer Manual Testing Protocol
+---
 
-All audits must include manual verification across these four critical layers:
+## 🛠️ Professional Audit Methodology (5-Layer SOP)
 
-#### 1. Keyboard-Only Testing (The "No Mouse" Rule)
-*   **Skip Links**: Ensure a "Skip to Main Content" link appears on the first tab and correctly moves focus to the `<main>` element.
-*   **Focus Visibility**: Verify that all interactive elements have a clear, high-contrast focus indicator (never use `outline: none`).
-*   **Focus Order**: Tab sequence must follow the logical visual flow.
-*   **Keyboard Traps**: Ensure users can enter and exit all modals, dropdowns, and overlays using only the keyboard (Esc must close overlays).
-*   **Target Size (WCAG 2.2)**: Verify that all interactive targets are at least **24x24 CSS pixels**.
+Every accessibility audit MUST follow this structured sequence to ensure 100% WCAG 2.1/2.2 AA coverage. The specific checks (like "Virtual NVDA" and "Heuristic Red Flags") are integrated directly into this workflow to ensure nothing is missed.
 
-#### 2. Screen Reader Testing (The "Eyes Closed" Rule)
-*   **Landmarks & Headings**: Verify structure using the Elements List (e.g., NVDA Insert + F7). Ensure a single `<h1>` and meaningful `<nav>`, `<main>`, and `<footer>` landmarks.
-*   **Dynamic Content (ARIA Live)**: Confirm that toasts, errors, and live updates are announced (use `aria-live="polite"`).
-*   **Image Context**: Alt texts must be descriptive; decorative images must be hidden (`alt=""` or `aria-hidden="true"`).
-*   **Form Labels**: Inputs must announce their label, state (required/invalid), and any helper text via `aria-describedby`.
+### 1. Executive Summary & Scope
+Before technical testing, define the boundaries:
+*   **The Scope**: List all URLs and critical user flows (e.g., "Registration", "Search Experience").
+*   **Environment**: Document specific versions of browsers (Chrome/Firefox) and Assistive Technology (NVDA/JAWS/Virtual NVDA).
+*   **Conformance Target**: State the version (e.g., WCAG 2.2 Level AA).
 
-#### 3. Visual & Reflow Testing (The "User Preference" Rule)
-*   **Zoom & Reflow (WCAG 1.4.10)**: Zoom to **400%**. Site must reflow to a single column with **no horizontal scrolling** or content overlap.
-*   **Text Spacing (WCAG 1.4.12)**: Increase line height and letter spacing. Text must remain contained without truncation.
-*   **Color Contrast**: Maintain **4.5:1** for regular text and **3:1** for large text/UI components.
-*   **High Contrast Mode**: Verify visibility of icons and borders in Windows High Contrast Mode.
+### 2. Automated Scanning (The Baseline)
+Run baseline scans using `axe-core`, `pa11y`, or `lighthouse`.
+*   **Catch Low-Hanging Fruit**: Missing IDs, basic contrast, and empty alt attributes.
+*   **Reporting Disclaimer**: Explicitly state that automated tools only catch ~30% of potential barriers and serve only as a starting point.
 
-#### 4. Code & Semantic Inspection (The "Lead Dev" Rule)
-*   **Semantic HTML**: Use `<button>` for actions and `<a>` for navigation. No `div` with `onClick`.
-*   **ARIA Validation**: Follow the First Rule of ARIA: If a native HTML element exists, do not use ARIA.
-*   **Form Errors**: Ensure `aria-describedby` links error messages to inputs.
+### 3. Manual Technical Audit (The Core)
+Apply expert frontend knowledge to check:
+*   **Keyboard Operability**: Verify every interactive element is reachable. Confirm "Skip to Content" presence and absence of Keyboard Traps.
+*   **Focus Management**: Ensure `:focus-visible` contrast is clear. Verify Focus Trapping in all modals and overlays.
+*   **Source vs. Visual Order**: Ensure the Tab sequence follows a logical reading order regardless of CSS positioning.
+*   **Reflow & Zoom (WCAG 1.4.10)**: Verify the site works at 400% zoom (320px width) without horizontal scroll or content overlap.
+*   **Touch & Target Size (WCAG 2.2)**: Verify that all interactive targets are at least **24x24 CSS pixels**. Ensure no complex pointer gestures are required without a single-click alternative.
+
+### 4. Screen Reader Validation (The User Experience)
+*Utilizing the AI-Driven "Virtual NVDA" Simulation Rule:*
+*   **Snapshot Extraction**: Take a verbose snapshot of the Accessibility Tree.
+*   **Linear Announcement Logic**: Walk the tree from top-to-bottom. Announce landmarks, headings, links, and buttons with their state. Flag "No Text" or redundant announcements.
+*   **Semantics & Landmarks**: Verify H1-H6 hierarchy and proper use of `<nav>`, `<main>`, and `<footer>`.
+*   **Name, Role, Value**: Ensure every interactive element has a clear accessible name. (e.g., "Submit, button").
+*   **ARIA Usage**: Validate that ARIA is used only when native HTML is insufficient. Ensure `aria-live` is used for dynamic updates.
+
+### 5. Visual, Cognitive & Heuristic Checking
+*   **Color Contrast**: Manually verify text contrast (4.5:1) and non-text contrast (3:1 for icons/borders).
+*   **Seizure Safety**: Ensure no content flashes >3 times per second.
+*   **Error Handling**: Verify error messages are clear and provide suggestions for correction.
+
+#### 🧠 Critical Heuristic Red Flags (Lessons Learned)
+Always manually verify these high-impact patterns during Phase 3 and 4:
+1. **The "Dual-Purpose" Blocker**: Check if a link (e.g., "Sign In") redirects to a new URL on click while also attempting to act as a hover-dropdown trigger. This is a keyboard blocker.
+2. **Keyboard Fatigue (The 10-Link Rule)**: If a navigation group contains >10 links without a "Skip to Content" link or arrow-key navigation, flag it as a Serious focus order violation.
+3. **Triple-Redundant Link Trap**: Flag cases where an Image, a Heading, and a Button all point to the same URL in a single card. Recommend consolidating focus to the button only.
+4. **The "Blank" Image Link**: Look for `alt="blank"` or `alt="image"` inside an anchor tag that has no other text. This effectively hides the link from screen readers.
+5. **Missing Submit Buttons**: Verify every functional `<form>` has a physical `<button type="submit">`. Relying on JS-only submission breaks keyboard "Enter" support.
+6. **"Escape" Key Support**: Always test the `Esc` key on search overlays, mobile menus, and modals. Lack of `Esc` support is a Serious Operability violation.
+7. **Technical Alt Text Noise**: Scan for filenames (e.g., `alt="bg-circular.png"`) or technical descriptions in alt attributes. These must be hidden (`alt=""`).
 
 ---
 
@@ -116,8 +103,7 @@ When documenting audit findings, always use these standardized titles and remedi
 > [!IMPORTANT]
 > **CRITICAL RULE:** Failure to sort findings by severity (Minor to Blocker) within each section makes the report harder for developers to process. Always double-check that the "Severity" field follows this ascending order.
 
-3. **Bulleted Details:** Use bullet points for all issue metadata (Severity, Impairments, etc.).
-4. **Clear Divisors:** Use thematic dividers (e.g., `---`) between component groups.
+3. **Clear Divisors:** Use thematic dividers (e.g., `---`) between component groups.
 4. **Dev-Friendly VPATs:** For Conformance Reports (VPATs), include a "Compliance by Component" summary in addition to the standard WCAG table.
 
 #### Template: Master Technical Remediation Report
@@ -131,13 +117,17 @@ When documenting audit findings, always use these standardized titles and remedi
 ## 🏛️ Component: [Component Name]
 
 ### [Standardized Issue Title]
+**Severity:** [BLOCKER | SERIOUS | MODERATE | MINOR]
 
-- **Severity:** [BLOCKER | SERIOUS | MODERATE | MINOR]
-- **Affected Impairments:** [Visual | Motor | Cognitive | Hearing]
-- **Issue:** [Clear description of the barrier]
-- **Successful criteria:** [WCAG SC Link]
-- **Suggested remediation:** [Copy-pasteable fix and verification instructions]
-- **DOM Evidence:**
+**Affected Impairments:** [Visual | Motor | Cognitive | Hearing]
+
+**Issue:** [Clear description of the barrier]
+
+**Successful criteria:** [WCAG SC Link]
+
+**Suggested remediation:** [Copy-pasteable fix and verification instructions]
+
+**DOM Evidence:**
 ```html
 [Exact DOM Snippet]
 ```
@@ -149,7 +139,7 @@ When documenting audit findings, always use these standardized titles and remedi
 ```markdown
 # Accessibility Conformance Report (VPAT® 2.5): [Product Name]
 **Audit Date:** [Date]
-**Page Compliance Score:** [XX.XX]% (Calculated across 37 evaluated criteria: [X] Supports, [Y] Partially Supports, [Z] Does Not Support)
+**Compliance Score:** [XX.XX]% (Calculated across 37 evaluated criteria: [X] Supports, [Y] Partially Supports, [Z] Does Not Support)
 
 ---
 
@@ -229,5 +219,6 @@ While 37 is the baseline for static/informational marketing pages, if the audite
 | **Missing List Semantics** | Grouped cards/features marked as `div`s instead of `<ul>`. | 1.3.1 | MINOR | Visual (Screen Reader) |
 | **Fragmented Heading Hierarchy** | Skipped heading levels (e.g., H1 -> H5). | 1.3.1 | SERIOUS | Visual (Screen Reader) |
 | **Duplicate Announcements** | Concurrent mobile/desktop containers active in the a11y tree. | 1.3.1 | SERIOUS | Visual (Screen Reader) |
+| **Fragmented Heading Announcement** | Inline tags (like `<sup>`) causing screen readers to split a heading. | 1.3.1 | SERIOUS | Visual (Screen Reader) |
 | **Fragmented Heading Announcement** | Inline tags (like `<sup>`) causing screen readers to split a heading. | 1.3.1 | SERIOUS | Visual (Screen Reader) |
 | **Fake Button (Anchor without Role)** | Link used as button (`javascript:void(0)`) without keyboard support. | 4.1.2 | SERIOUS | Motor, Visual |
