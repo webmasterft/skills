@@ -21,6 +21,9 @@ Generate this report as the primary deliverable for developers. Findings must be
 
 ## 🏛️ Component: [Component Name]
 
+> [!IMPORTANT]
+> All issues within a component section MUST be ordered by severity: **MINOR → MODERATE → SERIOUS → BLOCKER**.
+
 ### [Issue Title]
 - **Severity**: [MINOR | MODERATE | SERIOUS | BLOCKER]
 - **Success Criteria**: [WCAG SC Link]
