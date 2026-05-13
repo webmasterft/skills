@@ -8,6 +8,9 @@ This document contains the canonical, dual-document reporting templates for all 
 
 Generate this report as the primary deliverable for developers. Findings must be grouped by UI Component and sorted strictly from **MINOR to BLOCKER**.
 
+> [!IMPORTANT]
+> **Audit Trail Mandate:** No finding related to Screen Reader validation or ARIA behavior is considered "confirmed" or "remediated" without a corresponding **NVDA Speech Log** entry attached as evidence.
+
 ````markdown
 # Master Technical Remediation Report: [Product Name]
 

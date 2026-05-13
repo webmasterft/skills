@@ -46,7 +46,28 @@ Mandatory accessibility guidelines to ensure WCAG 2.1 and 2.2 AA compliance acro
 To perform a comprehensive accessibility audit, trigger the expert workflow:
 **Command:** `/iaap` (defined in [iaap-workflow.md](./iaap-workflow.md))
 
-This workflow utilizes the **Accessibility Insights for Web** Chrome extension and **NVDA Screen Reader** to perform both automated FastPass checks and manual Assessment tests, covering 95%+ of WCAG 2.1 & 2.2 AA criteria.
+---
+
+## 🏗️ Phase 0: Project Handshake & Evidence SOP
+
+Every audit begins with a clean workspace to ensure artifacts are modular and developer-ready.
+
+### 1. Identify Workspace
+The agent will confirm the absolute path for the audit (e.g., `C:/oshyn/seiumb`).
+
+### 2. Scaffold Directories
+The agent will create the following folders:
+- `/a11y-audits/evidence/`: For NVDA logs, console errors, and screenshots.
+- `/a11y-audits/reports/`: For the Master report, VPAT, and page-specific findings.
+
+### 3. Setup NVDA Speech Logger (Verbatim Evidence)
+To provide "unassailable evidence" in the remediation report, follow this one-time setup per project:
+1.  **Open NVDA Settings**: `NVDA + N` -> Preferences -> Settings.
+2.  **Select Speech Logger**: Find the "Speech Logger" category in the left sidebar.
+3.  **Set Output Path**: Paste the project-specific path provided by the agent:
+    `[PROJECT_PATH]\a11y-audits\evidence\nvda-speech.log`
+4.  **Logging Trigger**: Toggle logging **ON** with `NVDA + Alt + L` right before you start your tab-sequence audit.
+5.  **Finish & Submit**: Toggle logging **OFF** once finished. The agent will then read this `.log` file to extract verbatim speech announcements for the final report.
 
 ---
 
@@ -83,13 +104,32 @@ Apply expert frontend knowledge to check:
 - **Keyboard Operability**: Verify every interactive element is reachable. Confirm "Skip to Content" presence and absence of Keyboard Traps.
 - **Focus Management**: Ensure `:focus-visible` contrast is clear. Verify Focus Trapping in all modals and overlays.
 - **Focus Visible & Tab Sequence Analysis**: The AI executes live DOM scripts via MCP to mathematically map `tabindex` flows and verify the presence of CSS `:focus-visible` properties across all interactive elements.
-- **Programmatic Color Contrast Checks**: The AI executes scripts to compute exact foreground/background color ratios directly from live computed styles.
-- **Source vs. Visual Order**: Ensure the Tab sequence follows a logical reading order regardless of CSS positioning.
-- **Reflow & Zoom (WCAG 1.4.10)**: Verify the site works at 400% zoom (320px width) without horizontal scroll or content overlap.
-- **Touch & Target Size (WCAG 2.2)**: Verify that all interactive targets are at least **24x24 CSS pixels**. Ensure no complex pointer gestures are required without a single-click alternative.
+
+### 3. Visual & Layout Adaptability (Color & Contrast)
+*Testing the "Perceivable" principle under different user constraints.*
+
+#### A. Color Contrast Standards (WCAG 1.4.3 / 1.4.11)
+- **Normal Text**: Minimum **4.5:1** ratio.
+- **Large Text (18pt+ or 14pt bold)**: Minimum **3:1** ratio.
+- **UI Components & Graphics**: Non-text contrast (icons, borders, focus indicators) must be at least **3:1**.
+- **The "Color-Only" Failure**: Information MUST NOT be conveyed by color alone. (e.g., Required fields must use an asterisk or label, not just a red border).
+
+#### B. Visual Disability Simulation Checklist
+Perform audits using color-blindness simulators (like Chrome DevTools or specialized extensions) to verify visibility for:
+- **Protanopia & Deuteranopia** (Red-Green blindness): Ensure critical buttons (Success/Error) remain distinguishable by shape or icon.
+- **Tritanopia** (Blue-Yellow blindness): Check that link colors remain visible against backgrounds.
+- **Achromatopsia** (Total color blindness): The UI must remain functional in grayscale.
+- **Low Vision & Cataracts**: Verify that borders and text remain legible under a "blur" filter or when contrast is slightly reduced.
+
+#### C. Reflow & Zoom (WCAG 1.4.10)
+- **Reflow (400% Zoom):** At 400% zoom on a 1280px wide screen, does the content flow vertically without a horizontal scrollbar?
+- **Text Spacing:** Increase line height (to 1.5) and paragraph spacing (to 2). Does text overlap or get cut off in fixed-height containers?
 - **Motion & Animations (WCAG 2.3.3)**: Verify that `prefers-reduced-motion` media queries are respected. Parallax, hero background videos, and heavy transitions MUST halt or simplify when this preference is set.
 
 ### 4. Screen Reader Validation (The User Experience)
+
+> [!IMPORTANT]
+> **Mandatory Evidence Protocol:** No Screen Reader findings are considered "confirmed" without a corresponding log entry captured via the **[NVDA-SOP.md](./NVDA-SOP.md)**.
 
 _Utilizing the AI-Driven "Virtual NVDA" Simulation Rule:_
 

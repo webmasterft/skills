@@ -37,10 +37,24 @@ description: iaap
 
 **Command:** `/iaap <url>`
 
-**Instruction:** When this command is triggered, the agent MUST execute the **5-Layer Audit SOP** defined in the **[Accessibility Skill (SKILL.md)](./SKILL.md)**.
+## Phase 0: Project Initialization (Mandatory)
 
-The audit will result in a dual-document output:
-1. **Master Technical Remediation Report** (Sorted Minor to Blocker)
-2. **VPAT® 2.5 ACR** (Based on the 37 Core Criteria Baseline)
+Before the audit begins, the agent MUST:
+1.  **Identify Project Path:** Ask the user for the client project root (e.g., `C:/oshyn/seiumb`).
+2.  **Scaffold Workspace:** Execute the following directory structure if it doesn't exist:
+    - `[PROJECT_PATH]/a11y-audits/evidence/`
+    - `[PROJECT_PATH]/a11y-audits/reports/`
+3.  **Establish Evidence Pipeline:** Instruct the user to set their **NVDA Speech Logger** to:
+    `[PROJECT_PATH]\a11y-audits\evidence\nvda-speech.log`
+4.  **Confirm Readiness:** Wait for the user to confirm that the environment is set up.
 
-Follow the templates defined in **[REPORTING.md](./REPORTING.md)**.
+## Phase 1: Execution
+
+Once initialized, the agent executes the **5-Layer Audit SOP** defined in the **[Accessibility Skill (SKILL.md)](./SKILL.md)** for each URL provided.
+
+The audit will result in a modular output:
+1. **Master Technical Remediation Report** (Located in `reports/master-report.md`)
+2. **Page-Specific Finding Artifacts** (Located in `reports/url-slug.md`)
+3. **VPAT® 2.5 ACR** (Located in `reports/vpat.md`)
+
+Follow the templates and sorting logic defined in **[REPORTING.md](./REPORTING.md)**.
