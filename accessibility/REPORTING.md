@@ -4,7 +4,24 @@ Every finding in a remediation report MUST follow this exact high-fidelity struc
 
 ---
 
-## 🏛️ Component: [Component Name]
+## 🏗️ The Live Preview Mandate
+
+**CRITICAL:** The agent MUST update the `remediation_report_preview.md` in parallel with every finding registration. No finding is complete until it is reflected in the high-fidelity preview.
+
+---
+
+## 🏗️ Severity Classification
+
+| Severity | Definition | Examples |
+| :--- | :--- | :--- |
+| **BLOCKER** | Prevents use for a specific group. | Keyboard trap, missing `aria-label` on icon button, no keyboard support. |
+| **SERIOUS** | Significant barrier, high frustration. | Missing form labels, **Missing accessible landmarks**, Ambiguous link context. |
+| **MODERATE** | Moderate barrier, degrades experience. | Heading skips, non-semantic grouping. |
+| **MINOR** | Subtle barrier or cosmetic failure. | Redundant alt text, layout shift below 0.1. |
+
+---
+
+## 🏛️ Component Template: [Component Name]
 
 > [!IMPORTANT]
 > All issues within a component section MUST be ordered by severity: **MINOR → MODERATE → SERIOUS → BLOCKER**.

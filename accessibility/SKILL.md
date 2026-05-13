@@ -5,6 +5,16 @@ description: "Accessibility (a11y) best practices for web development. Focuses o
 
 # Accessibility (a11y) Standards
 
+## 🛑 Fundamental Constraints: The Live Preview Mandate
+
+**CRITICAL DIRECTIVE:** The agent MUST update the `remediation_report_preview.md` artifact in the artifacts directory **in parallel** with every finding registration. 
+
+- **Timing:** No finding is considered "complete" until it is reflected in the High-Fidelity Preview.
+- **Format:** Always use the Bulleted Metadata format with direct WCAG links and DOM evidence.
+- **Purpose:** Ensure the user has immediate access to a copy-pasteable, client-ready report at all times.
+
+---
+
 Mandatory accessibility guidelines to ensure WCAG 2.1 and 2.2 AA compliance across all web applications.
 
 ## When to Apply
@@ -22,6 +32,10 @@ Mandatory accessibility guidelines to ensure WCAG 2.1 and 2.2 AA compliance acro
 - **Actions vs. Navigation**: Use `<button>` for functional actions (e.g., "Submit") and `<a>` for navigation. NEVER attach `onClick` to a `div`.
 - **Form Controls**: Use proper `<label>` elements for all inputs.
 - **Ordering of Findings**: ALWAYS order accessibility findings within a report from **MINOR** to **BLOCKER** (Minor -> Moderate -> Serious -> Blocker). This allows developers to see the lower-hanging fruit first before addressing structural blockers.
+- **Specific Severity Mappings**:
+  - **Missing Accessible Landmark**: ALWAYS SERIOUS (High-impact navigational barrier).
+  - **Ambiguous Link Purpose**: SERIOUS (Prevents link soup navigation).
+  - **Heading Skip**: MODERATE (Affects structure but content is reachable).
 
 ### 2. Labels & ARIA
 
@@ -123,7 +137,39 @@ Perform audits using color-blindness simulators (like Chrome DevTools or special
 - **Text Spacing:** Increase line height (to 1.5) and paragraph spacing (to 2). Does text overlap or get cut off in fixed-height containers?
 - **Motion & Animations (WCAG 2.3.3)**: Verify that `prefers-reduced-motion` media queries are respected. Parallax, hero background videos, and heavy transitions MUST halt or simplify when this preference is set.
 
-### 4. Screen Reader Validation (The User Experience)
+## 🛠️ Technical SOP: The 6-Layer Audit
+
+### [🤖 AGENT AUTOMATED] Layer 1: Global Config & A11y Tree
+- Check for `lang="en"`, `viewport` scaling, and broken ARIA references.
+
+### [🤝 HYBRID] Layer 2: Automated Baseline
+- Run `axe-core` or `Lighthouse`.
+- **Note:** Only catches ~30% of issues.
+
+### [🤝 HYBRID] Layer 3: Visual & Heuristic Audit
+- **Reflow:** 400% zoom (320px width).
+- **Contrast:** Manual calculation of computed styles.
+- **Motion:** Check for `prefers-reduced-motion` compliance.
+
+### [🤝 HYBRID] Layer 4: Screen Reader Validation (NVDA-SOP)
+- **Mandate:** "No log, no finding."
+- Parse verbatim logs to identify structural disorientation.
+
+### [🤝 HYBRID] Layer 5: Manual Keyboard & Interaction
+- Tab order mapping and focus indicator visibility.
+
+### [🤖 AGENT AUTOMATED] Layer 6: Static Code Audit
+- **Trigger:** Given a raw HTML snippet.
+- **Audit Points:**
+    - **Landmarks:** Does the container have a role or label?
+    - **Semantics:** Are interactive elements nested correctly?
+    - **Attributes:** Are generic links (e.g., "Learn more") programmatically described?
+- **Example Case:**
+  ```html
+  <section class="section-promotional"> <!-- ❌ No Landmark Label -->
+      <h4> ... <a href="#">Learn more</a>!</h4> <!-- ❌ Ambiguous Link & Nested Interaction -->
+  </section>
+  ```
 
 > [!IMPORTANT]
 > **Mandatory Evidence Protocol:** No Screen Reader findings are considered "confirmed" without a corresponding log entry captured via the **[NVDA-SOP.md](./NVDA-SOP.md)**.
