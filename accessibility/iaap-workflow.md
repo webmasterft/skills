@@ -69,13 +69,16 @@ The agent MUST maintain a live **VPAT® 2.5 ACR** for **EACH audited URL** with 
     `((Supports * 1) + (Partially Supports * 0.5)) / Denominator * 100`
 4.  **Audit Trail:** No Screen Reader "Pass" or "Fail" is valid without cross-referencing an NVDA Log entry in the `reports/master-report.md`.
 
-## Phase 3: Reporting Hierarchy (Mandatory)
+## Phase 3: Reporting & Evidence Mandate (Mandatory)
 
-All audit findings MUST be organized using the following 3-tier hierarchy:
+All audit findings MUST be organized using the following 3-tier hierarchy and the **High-Fidelity Preview** format:
 
 1.  **Tier 1: By Page** (Separate `.md` file per URL slug).
-2.  **Tier 2: By Component** (Markdown `##` sections for specific site components).
-3.  **Tier 3: Internal Sorting** (Issues within a component MUST be ordered from **MINOR to BLOCKER**).
+2.  **Tier 2: By Component** (Markdown `##` sections).
+3.  **Tier 3: The High-Fidelity Template:**
+    - **Bulleted Metadata:** All fields (Severity, Impairments, etc.) MUST be bullet points.
+    - **Minor to Blocker** sorting.
+    - **Artifact Generation:** Always generate a `remediation_report_preview.md` in the artifacts directory for easy copy-paste.
 
 ---
 
