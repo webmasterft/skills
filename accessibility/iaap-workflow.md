@@ -57,4 +57,18 @@ The audit will result in a modular output:
 2. **Page-Specific Finding Artifacts** (Located in `reports/url-slug.md`)
 3. **VPAT® 2.5 ACR** (Located in `reports/vpat.md`)
 
+## Phase 2: Scoring & Compliance Mandate
+
+The agent MUST maintain a live **VPAT® 2.5 ACR** for **EACH audited URL** with the following technical scoring logic:
+
+1.  **Granularity:** Generate a `reports/[url-slug]-vpat.md` for every page audited.
+2.  **Criteria Range:**
+    - **Baseline:** 37 Core Criteria (Standard Marketing Pages).
+    - **Advanced:** 42-45 Core Criteria (Complex/Interactive/Auth-heavy sites).
+3.  **The Formula:**
+    `((Supports * 1) + (Partially Supports * 0.5)) / Denominator * 100`
+4.  **Audit Trail:** No Screen Reader "Pass" or "Fail" is valid without cross-referencing an NVDA Log entry in the `reports/master-report.md`.
+
+---
+
 Follow the templates and sorting logic defined in **[REPORTING.md](./REPORTING.md)**.

@@ -20,15 +20,17 @@ To ensure the AI agent can read your findings, you must redirect the NVDA Speech
 
 ## ⌨️ 2. Audit Execution Shortcuts
 
-| Action                | Shortcut              | Description                                                                              |
-| :-------------------- | :-------------------- | :--------------------------------------------------------------------------------------- |
-| **Toggle Logging**    | `NVDA + Alt + L`      | Starts or stops the speech capture. You should hear a beep.                              |
-| **Elements List**     | `NVDA + F7`           | Use this to audit Landmarks, Headings, and Links hierarchy.                              |
-| **Read Current Line** | `NVDA + Up Arrow`     | Re-announces the current line to ensure it's logged clearly.                             |
-| **Tab Sequence**      | `Tab` / `Shift + Tab` | Move through interactive elements to capture "Focus Announcements".                      |
-| **Enter / Space**     | `Enter` / `Space`     | Activates buttons/links. Verify that NVDA announces the state change (e.g., "Expanded"). |
-| **Arrow Keys**        | `Arrows`              | Used for navigating custom widgets like Sliders, Tabs, and Carousels.                    |
-| **Escape Key**        | `Esc`                 | Must close modals and overlays. Focus MUST return to the triggering element.             |
+| Action                | Shortcut              | Description                                                                                                                              |
+| :-------------------- | :-------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| **Toggle Logging**    | `NVDA + Alt + L`      | Starts or stops the speech capture. You should hear a beep.                                                                              |
+| **Elements List**     | `NVDA + F7`           | Opens the list of Landmarks, Headings, and Links. Use this to audit the **logical order** and descriptive text of all links on the page. |
+| **Link Navigation**   | `K` / `Shift + K`     | Jumps to the next or previous link. Essential for "Link Soup" audits.                                                                    |
+| **Visited Link**      | `V` / `Shift + V`     | Jumps to the next or previous visited link.                                                                                              |
+| **Read Current Line** | `NVDA + Up Arrow`     | Re-announces the current line to ensure it's logged clearly.                                                                             |
+| **Tab Sequence**      | `Tab` / `Shift + Tab` | Move through interactive elements to capture "Focus Announcements".                                                                      |
+| **Enter / Space**     | `Enter` / `Space`     | Activates buttons/links. Verify that NVDA announces the state change (e.g., "Expanded").                                                 |
+| **Arrow Keys**        | `Arrows`              | Used for navigating custom widgets like Sliders, Tabs, and Carousels.                                                                    |
+| **Escape Key**        | `Esc`                 | Must close modals and overlays. Focus MUST return to the triggering element.                                                             |
 
 ---
 

@@ -75,37 +75,34 @@ To provide "unassailable evidence" in the remediation report, follow this one-ti
 
 Every accessibility audit MUST follow this structured sequence to ensure 100% WCAG 2.1/2.2 AA coverage. The specific checks (like "Virtual NVDA" and "Heuristic Red Flags") are integrated directly into this workflow to ensure nothing is missed.
 
-### 1. Executive Summary & Scope
+## 🛠️ Professional Audit Methodology (5-Layer SOP)
 
-Before technical testing, define the boundaries:
+Every accessibility audit MUST follow this structured sequence. The AI Agent performs the "heavy lifting" of data collection and calculation, while the Human Auditor provides the "Contextual Judgment."
 
-- **The Scope**: List all URLs and critical user flows (e.g., "Registration", "Search Experience").
-- **Environment**: Document specific versions of browsers (Chrome/Firefox) and Assistive Technology (NVDA/JAWS/Virtual NVDA).
-- **Conformance Target**: State the version (e.g., WCAG 2.2 Level AA).
+### 1. Executive Summary & Scope `[🤝 HYBRID]`
+- **Agent**: Scaffolds the directory structure and creates the report templates.
+- **Human**: Defines the URLs and critical user flows to be tested.
 
-### 2. Automated Scanning (The Baseline)
+### 2. Automated Scanning (The Baseline) `[🤖 AGENT AUTOMATED]`
+- **Action**: Agent runs **Lighthouse** and **axe-core** injections.
+- **Output**: Identifies ~30% of low-hanging fruit (missing alt, ID collisions, basic contrast).
+- **Human Role**: Review the results for false positives (rare but possible).
 
-Run baseline scans using the right tool for the specific context:
+### 3. Manual Technical Audit (The Core) `[🤝 HYBRID]`
 
-| Tool              | Primary Use Case                | Key Strength                                      |
-| :---------------- | :------------------------------ | :------------------------------------------------ |
-| **Axe-Core**      | In-browser dev/debugging.       | Zero false-positive policy.                       |
-| **Lighthouse**    | Quick page-level sanity checks. | Integrated A11y + SEO performance metrics.        |
-| **Pa11y**         | Automated CLI scripts & CI/CD.  | Fast headless auditing with JSON exports.         |
-| **A11y Insights** | **Mandatory** for full audits.  | Guided "Assessment" tests for non-automatable SC. |
+#### A. Keyboard & Focus `[🤝 HYBRID]`
+- **Agent (Programmatic)**: Maps the `tabindex` flow and detects "Focus Leaks" (if focus leaves a modal). Simulates `Esc` key to verify closure.
+- **Human (Verification)**: Confirms the **Focus Indicator** is visually clear and high-contrast. Verifies the "Feel" of the tab order.
 
-- **Catch Low-Hanging Fruit**: Missing IDs, basic contrast, and empty alt attributes.
-- **Reporting Disclaimer**: Explicitly state that automated tools only catch ~30% of potential barriers and serve only as a starting point.
+#### B. Color & Contrast `[🤝 HYBRID]`
+- **Agent (Calculation)**: Computes the **Exact Contrast Ratio** for all text and UI components based on live computed styles. Flags all <4.5:1 violations.
+- **Human (Meaning)**: Verifies that information is not conveyed by **Color Alone** (e.g., checking if a red border also has an error icon).
 
-### 3. Manual Technical Audit (The Core)
+#### C. Reflow & Zoom (WCAG 1.4.10) `[🤝 HYBRID]`
+- **Agent (Simulation)**: Resizes the viewport to **320px** and programmatically detects **Horizontal Overflow**.
+- **Human (Overlap)**: Verifies that text does not overlap or "disappear" behind other elements at 400% zoom.
 
-Apply expert frontend knowledge to check:
-
-- **Keyboard Operability**: Verify every interactive element is reachable. Confirm "Skip to Content" presence and absence of Keyboard Traps.
-- **Focus Management**: Ensure `:focus-visible` contrast is clear. Verify Focus Trapping in all modals and overlays.
-- **Focus Visible & Tab Sequence Analysis**: The AI executes live DOM scripts via MCP to mathematically map `tabindex` flows and verify the presence of CSS `:focus-visible` properties across all interactive elements.
-
-### 3. Visual & Layout Adaptability (Color & Contrast)
+### 4. Screen Reader Validation `[🤝 HYBRID]`
 *Testing the "Perceivable" principle under different user constraints.*
 
 #### A. Color Contrast Standards (WCAG 1.4.3 / 1.4.11)

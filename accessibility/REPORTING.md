@@ -39,7 +39,7 @@ Generate this report as the primary deliverable for developers. Findings must be
 
 ## Document 2: Accessibility Conformance Report (VPAT® 2.5)
 
-A formal ACR adhering to IAAP professional standards, utilizing the **37 Core Web Criteria Baseline**.
+A formal ACR adhering to IAAP professional standards, generated for **each audited URL**.
 
 ````markdown
 # Accessibility Conformance Report (VPAT® 2.5): [Product Name]
