@@ -1,12 +1,11 @@
 # Accessibility Conformance Report (VPAT® 2.5 WCAG): SEIUMB Home Page
-**Audit Date:** May 12, 2026
-**Conformance Level:** WCAG 2.1 & 2.2 Level AA
 
-**Compliance Score:** 83.33%
-*Calculated across 42 evaluated criteria: 35 Supports, 0 Partially Supports, 7 Does Not Support.*
-*Formula: `((35 * 1) + (0 * 0.5)) / 42 * 100 = 83.33%`*
+Report Date: May 12, 2026
+Status: 🔴 FAIL (Blocker & Serious Violations)
+Compliance Score: 83.33% (Calculated across 42 evaluated criteria: 35 Supports, 0 Partially Supports, 7 Does Not Support)
 
 ---
+
 
 ## 🏗️ Compliance Summary by Component
 

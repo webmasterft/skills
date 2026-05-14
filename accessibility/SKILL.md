@@ -31,7 +31,8 @@ Mandatory accessibility guidelines to ensure WCAG 2.1 and 2.2 AA compliance acro
 - **Zero-Div Soup Policy**: Use semantic elements over `<div>` whenever possible.
 - **Actions vs. Navigation**: Use `<button>` for functional actions (e.g., "Submit") and `<a>` for navigation. NEVER attach `onClick` to a `div`.
 - **Form Controls**: Use proper `<label>` elements for all inputs.
-- **Ordering of Findings**: ALWAYS order accessibility findings within a report from **MINOR** to **BLOCKER** (Minor -> Moderate -> Serious -> Blocker). This allows developers to see the lower-hanging fruit first before addressing structural blockers.
+- **Ordering of Findings (MANDATORY)**: ALWAYS order accessibility findings within a report strictly from **MINOR to BLOCKER** (Minor -> Moderate -> Serious -> Blocker). This is a non-negotiable requirement for developer scannability.
+- **Title Naming Standard**: Issue titles MUST NOT contain the severity in brackets (e.g., Use `### Missing Alt Text`, NOT `### [MINOR] Missing Alt Text`). Severity is documented exclusively in the bulleted metadata block.
 - **Specific Severity Mappings**:
   - **Missing Accessible Landmark**: ALWAYS SERIOUS (High-impact navigational barrier).
   - **Ambiguous Link Purpose**: SERIOUS (Prevents link soup navigation).
@@ -215,13 +216,58 @@ When documenting audit findings, always use these standardized titles and remedi
 ### Reporting Standards for Consistency:
 
 1. **Group by Component:** Issues MUST be grouped by functional UI component (e.g., Header, Hero, FAQ).
-2. **Sort by Severity (CRITICAL):** Within each component group, order issues strictly from **MINOR** to **BLOCKER** (Minor -> Moderate -> Serious -> Blocker).
+2. **Sort by Severity (STRICT MANDATE):** Within each component group, order issues strictly from **MINOR to BLOCKER** (Minor -> Moderate -> Serious -> Blocker).
+3. **No Severity in Titles:** Do NOT include `[BLOCKER]` or `[SERIOUS]` in the heading title. This information is already present in the metadata block.
+4. **Clear Divisors:** Use thematic dividers (e.g., `---`) between component groups.
+4. **Standardized VPAT Header (STRICT):** Every VPAT report MUST begin with this exact metadata block:
+   ```markdown
+   Report Date: [Date] 
+   Status: [Emoji] [Status Text]
+   Compliance Score: [Score]% (Calculated across [N] evaluated criteria: [S] Supports, [P] Partially Supports, [D] Does Not Support)
+   ```
+5. **Standardized 42-Criteria Baseline:** For interactive, authenticated, or complex sites (like Login flows), the 42-criteria baseline is MANDATORY. This includes all A/AA criteria from WCAG 2.1 and critical 2.2 additions.
 
-> [!IMPORTANT]
-> **CRITICAL RULE:** Failure to sort findings by severity (Minor to Blocker) within each section makes the report harder for developers to process. Always double-check that the "Severity" field follows this ascending order.
+---
 
-3. **Clear Divisors:** Use thematic dividers (e.g., `---`) between component groups.
-4. **Dev-Friendly VPATs:** For Conformance Reports (VPATs), include a "Compliance by Component" summary in addition to the standard WCAG table.
+## 🎨 Master Reporting Fashion (2026 Standard)
+
+Every accessibility report and VPAT MUST strictly adhere to this visual and structural "fashion" to ensure client-ready professionalism and cross-project consistency.
+
+### 1. The Global Header
+Every document MUST start with this standardized metadata block:
+
+```markdown
+Report Date: [Full Date]
+Page Compliance Score: [Score]% (Calculated across 42 evaluated criteria: [S] Supports, [PS] Partially Supports, [DNS] Does Not Support)
+Status: 🔴 FAIL / 🟢 PASS (Brief summary of severity, e.g., Blocker & Critical Violations)
+```
+
+### 2. The VPAT Structure
+The VPAT section must use the following header and a single unified table (no principle split):
+
+```markdown
+# VPAT - 2.5 WCAG 2.1 / 2.2 AA
+
+| Criteria | Conformance Level | Remarks and Explanations |
+| :--- | :--- | :--- |
+| 1.1.1 Non-text Content (A) | Partially Supports | ... |
+```
+
+### 3. The Master Audit Structure
+Detailed findings are grouped by **Functional Component**. Each finding MUST use the following metadata-first structure:
+
+```markdown
+## [Component Name]
+
+### [Issue Title]
+**Severity:** [MINOR/MODERATE/SERIOUS/BLOCKER]  
+**Affected Impairments:** [e.g., Visual, Motor, Cognitive]  
+**Issue:** [Concise description of the technical barrier].  
+**Successful criteria:** [SC Number and Name]  
+**Suggested remediation:** [Actionable technical fix].  
+**DOM Evidence:**  
+`code_snippet_or_log_entry`
+```
 
 ---
 
@@ -239,30 +285,29 @@ To bridge the gap between AI simulation and real-world screen reader testing, fo
 
 ---
 
-### 📏 The 37 Core Web Criteria Baseline
+### 📏 The 42 Core Web Criteria Baseline
 
-To ensure scoring consistency across marketing pages, we evaluate a standardized baseline of **37 Success Criteria**. This list is derived from the full WCAG 2.2 AA specification (55 criteria) by excluding 18 "Not Applicable" (N/A) items.
+To ensure scoring consistency across marketing and interactive pages, we evaluate a standardized baseline of **42 Success Criteria**. This list is derived from the full WCAG 2.2 AA specification by excluding only specific "Not Applicable" (N/A) items.
 
-**The 37 Evaluated Criteria:**
+**The 42 Evaluated Criteria:**
 
 - **Perceivable:** 1.1.1, 1.2.1, 1.2.2, 1.2.3, 1.2.5, 1.3.1, 1.3.2, 1.3.3, 1.3.4, 1.3.5, 1.4.1, 1.4.3, 1.4.4, 1.4.5, 1.4.10, 1.4.11, 1.4.12, 1.4.13
-- **Operable:** 2.1.1, 2.1.2, 2.1.4, 2.2.2, 2.4.1, 2.4.2, 2.4.3, 2.4.4, 2.4.5, 2.4.6, 2.4.7, 2.4.11, 2.5.1, 2.5.3, 2.5.8
-- **Understandable:** 3.2.1, 3.2.2
-- **Robust:** 4.1.1 (Parsing), 4.1.2
+- **Operable:** 2.1.1, 2.1.2, 2.1.4, 2.2.2, 2.4.1, 2.4.2, 2.4.3, 2.4.4, 2.4.5, 2.4.6, 2.4.7, 2.4.11, 2.5.1, 2.5.2, 2.5.3, 2.5.7, 2.5.8
+- **Understandable:** 3.2.1, 3.2.2, 3.3.1, 3.3.2
+- **Robust:** 4.1.2
 
 **Scoring Methodology:**
 
 - **Supports (1pt) / Partially (0.5pt) / Does Not Support (0pt)**.
-- **Score Calculation:** `((Supports * 1) + (Partially Supports * 0.5)) / Denominator * 100` (Denominator is 37 by default).
+- **Score Calculation:** `((Supports * 1) + (Partially Supports * 0.5)) / Denominator * 100` (Denominator is 42 by default).
 
 #### 🔄 Conditional Re-inclusion Rules
 
 | If the page contains... | Add these Success Criteria (SC)                                                          |
 | :---------------------- | :--------------------------------------------------------------------------------------- |
 | **Sticky UI**           | 2.4.11 (Focus Not Obscured - Min).                                                       |
-| **Forms / Submissions** | 3.3.1 (Error ID), 3.3.3 (Error Suggestion), 3.3.4 (Prevention), 3.3.7 (Redundant Entry). |
+| **Submissions**         | 3.3.3 (Error Suggestion), 3.3.4 (Prevention), 3.3.7 (Redundant Entry).                   |
 | **Login / Auth**        | 3.3.8 (Accessible Authentication - Min).                                                 |
-| **Drag & Drop**         | 2.5.7 (Dragging Movements).                                                              |
 
 ---
 

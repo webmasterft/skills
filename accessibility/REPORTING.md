@@ -24,7 +24,8 @@ Every finding in a remediation report MUST follow this exact high-fidelity struc
 ## 🏛️ Component Template: [Component Name]
 
 > [!IMPORTANT]
-> All issues within a component section MUST be ordered by severity: **MINOR → MODERATE → SERIOUS → BLOCKER**.
+> **STRICT ORDERING MANDATE:** All issues within a component section MUST be ordered by severity: **MINOR → MODERATE → SERIOUS → BLOCKER**.
+> **NO SEVERITY IN TITLES:** Do NOT include the severity in the H3 title.
 
 ### [Issue Title]
 
@@ -44,4 +45,15 @@ Every finding in a remediation report MUST follow this exact high-fidelity struc
 ## 🏛️ Scoring Logic (VPAT 2.5)
 
 - **Formula:** `((Supports * 1) + (Partially Supports * 0.5)) / Denominator * 100`
-- **Criteria Range:** 37 (Marketing) to 45 (Complex Interaction).
+- **Criteria Baseline:** 42 Criteria (Mandatory for Interactive/Login pages).
+ 
+ ### VPAT Header Format (STRICT)
+ ```markdown
+ Report Date: [Current Date] 
+ Status: [Emoji] [Status Text] (e.g., 🔴 FAIL (Blocker & Serious Violations))
+ Compliance Score: [XX.XX]% (Calculated across 42 evaluated criteria: [S] Supports, [P] Partially Supports, [D] Does Not Support)
+ ```
+ 
+ > [!IMPORTANT]
+ > **The VPAT must include all 42 criteria in the conformance table**, even if N/A (mark as Supports with remark "N/A").
+

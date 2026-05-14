@@ -77,7 +77,8 @@ All audit findings MUST be organized using the following 3-tier hierarchy and th
 2.  **Tier 2: By Component** (Markdown `##` sections).
 3.  **Tier 3: The High-Fidelity Template:**
     - **Bulleted Metadata:** All fields (Severity, Impairments, etc.) MUST be bullet points.
-    - **Minor to Blocker** sorting.
+    - **Strict Ordering:** All findings MUST be sorted from **MINOR to BLOCKER** within each component section.
+    - **No Severity in Titles:** Titles must be descriptive only (no `[BLOCKER]` prefix).
     - **Artifact Generation:** Always generate a `remediation_report_preview.md` in the artifacts directory for easy copy-paste.
 
 ---

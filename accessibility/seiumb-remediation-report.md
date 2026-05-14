@@ -6,7 +6,7 @@
 
 ## 🏛️ Component: Search & Header (Minor Issues First)
 
-### [Standardized Issue Title] Missing Landmark Label
+### Missing Landmark Label
 - **Severity:** MINOR
 - **Affected Impairments:** Visual (Screen Reader)
 - **Issue:** The `<section>` container for the search results lacks an `aria-label` or `aria-labelledby`, preventing screen reader users from identifying the landmark.
@@ -17,7 +17,7 @@
   <section class="search-container">...</section>
   ```
 
-### [Standardized Issue Title] Redundant Image Alt Text
+### Redundant Image Alt Text
 - **Severity:** MINOR
 - **Affected Impairments:** Visual (Screen Reader noise)
 - **Issue:** The footer logo has alt text "Logo SEIU," which is redundant as the screen reader already announces the element as an image.
@@ -32,7 +32,7 @@
 
 ## 🏛️ Component: Navigation & Links (Moderate)
 
-### [Standardized Issue Title] Ambiguous Link Purpose
+### Ambiguous Link Purpose
 - **Severity:** MODERATE
 - **Affected Impairments:** Visual, Cognitive
 - **Issue:** Multiple links labeled "Learn More" and "Explore" provide no context for screen reader users navigating by link lists.
@@ -43,7 +43,7 @@
   <a href="/auto" class="link">Learn More</a>
   ```
 
-### [Standardized Issue Title] Small Interactive Target (Touch Targets)
+### Small Interactive Target (Touch Targets)
 - **Severity:** MODERATE
 - **Affected Impairments:** Motor
 - **Issue:** Social media icons and the "Skip to Content" link measure below the mandatory 24x24px threshold.
@@ -58,7 +58,7 @@
 
 ## 🏛️ Component: Main Content & Visuals (Serious)
 
-### [Standardized Issue Title] Fragmented Heading Hierarchy
+### Fragmented Heading Hierarchy
 - **Severity:** SERIOUS
 - **Affected Impairments:** Visual (Screen Reader), Cognitive
 - **Issue:** The page skips logical levels, starting with `H4` and `H5` before reaching the main `H1`.
@@ -70,7 +70,7 @@
   <h1 class="hero-title">SEIU Member Benefits</h1>
   ```
 
-### [Standardized Issue Title] Color Contrast Violation (Aquamarine)
+### Color Contrast Violation (Aquamarine)
 - **Severity:** SERIOUS
 - **Affected Impairments:** Visual
 - **Issue:** Primary action buttons (`#0099B2`) have a contrast ratio of **3.33:1** against white text, failing the **4.5:1** requirement.
@@ -85,7 +85,7 @@
 
 ## 🏛️ Component: Mobile Navigation (Blocker)
 
-### [Standardized Issue Title] Missing "Escape" Key Support
+### Missing "Escape" Key Support
 - **Severity:** BLOCKER
 - **Affected Impairments:** Motor, Cognitive
 - **Issue:** The mobile menu overlay cannot be closed using the 'Escape' key, forcing keyboard users to tab through the entire menu to exit.
@@ -96,7 +96,7 @@
   // Missing listener in navigation.js
   ```
 
-### [Standardized Issue Title] Focus Trap Failure (Mobile Menu)
+### Focus Trap Failure (Mobile Menu)
 - **Severity:** BLOCKER
 - **Affected Impairments:** Visual (Screen Reader), Motor
 - **Issue:** Focus is not trapped within the mobile menu. Tabbing past the last item moves focus to hidden background elements.
